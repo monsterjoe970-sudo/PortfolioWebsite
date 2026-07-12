@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joe Walker — 3D Artist</title>
+<meta name="description" content="3D environment and game-ready asset artist portfolio.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+/* ============================================================
+   DESIGN TOKENS — change these to re-theme the whole site
+   ============================================================ */
+:root{
+  --bg:        #0E0E12;
+  --bg-raised: #16161B;
+  --panel:     #1C1C22;
+  --line:      #2A2A31;
+
+  --text:      #F5F3EE;
+  --text-dim:  #B8B4AC;
+  --text-mute: #8C8478;
+
+  --accent:    #1CBA6E;
+  --accent-dim:#7A3A2A;
+  --teal:      #3A4A4A;
+
+  --radius: 10px;
+  --radius-lg: 22px;
+  --maxw: 1280px;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+
+::selection{ background:var(--accent); color:#0E0E12; }
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+.wrap{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 32px;
+}
+
+@media (max-width:640px){
+  .wrap{ padding:0 20px; }
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(14,14,18,0.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 0;
+}
+
+.logo{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:0.02em;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo .dot{
+  width:8px; height:8px;
+  background:var(--accent);
+  border-radius:1px;
+  display:inline-block;
+  flex-shrink:0;
+}
+
+.navlinks{
+  display:flex;
+  gap:36px;
+  font-size:14px;
+  font-weight:500;
+  color:var(--text-dim);
+}
+
+.navlinks a{
+  position:relative;
+  transition:color 0.2s ease;
+  padding:4px 0;
+}
+.navlinks a:hover{ color:var(--text); }
+.navlinks a::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:-2px;
+  width:0; height:1px;
+  background:var(--accent);
+  transition:width 0.25s ease;
+}
+.navlinks a:hover::after{ width:100%; }
+
+.navtoggle{
+  display:none;
+  background:none;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  color:var(--text);
+  width:38px; height:38px;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+@media (max-width:760px){
+  .navlinks{
+    position:absolute;
+    top:100%; left:0; right:0;
+    flex-direction:column;
+    gap:0;
+    background:var(--bg-raised);
+    border-bottom:1px solid var(--line);
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .navlinks.open{ max-height:300px; }
+  .navlinks a{
+    padding:16px 20px;
+    width:100%;
+    border-bottom:1px solid var(--line);
+  }
+  .navtoggle{ display:flex; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding:120px 0 100px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  top:-200px; right:-200px;
+  width:600px; height:600px;
+  background:radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  opacity:0.35;
+  pointer-events:none;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.3fr 0.7fr;
+  gap:56px;
+  align-items:center;
+}
+
+.hero-photo{
+  justify-self:end;
+  width:100%;
+}
+.hero-photo img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:var(--radius-lg);
+}
+
+@media (max-width:900px){
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+  .hero-photo{
+    justify-self:start;
+    max-width:240px;
+    order:-1;
+  }
+}
+
+/* On mobile there isn't enough room for the photo to look good
+   alongside the headline, so it's removed entirely rather than
+   shrunk further. */
+@media (max-width:640px){
+  .hero-photo{ display:none; }
+}
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--text-mute);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.eyebrow::before{
+  content:'';
+  width:24px; height:1px;
+  background:var(--text-mute);
+}
+
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(40px, 7vw, 84px);
+  line-height:1.02;
+  letter-spacing:-0.01em;
+  max-width:920px;
+}
+
+.hero h1 em{
+  font-style:normal;
+  color:var(--accent);
+}
+
+.hero-sub{
+  margin-top:28px;
+  max-width:560px;
+  font-size:18px;
+  color:var(--text-dim);
+}
+
+.hero-actions{
+  margin-top:40px;
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  font-family:var(--font-mono);
+  font-size:13px;
+  letter-spacing:0.03em;
+  padding:14px 26px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:all 0.2s ease;
+}
+.btn-primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#15110E;
+  font-weight:500;
+}
+.btn-primary:hover{
+  background:transparent;
+  color:var(--accent);
+}
+.btn-ghost:hover{
+  border-color:var(--text-dim);
+  background:var(--panel);
+}
+
+.hero-software{
+  margin-top:80px;
+  border-top:1px solid var(--line);
+  padding-top:32px;
+}
+
+.software-label{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-mute);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  margin-bottom:20px;
+}
+
+.software-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  list-style:none;
+}
+
+.software-list + .software-list{
+  margin-top:12px;
+}
+
+.software-list li{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:15px;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:10px 18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:border-color 0.2s ease, color 0.2s ease;
+}
+
+.software-list li:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.software-icon{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  flex-shrink:0;
+  opacity:0.85;
+  transition:opacity 0.2s ease;
+}
+.software-list li:hover .software-icon{ opacity:1; }
+
+@media (max-width:760px){
+  .hero-software{ margin-top:56px; }
+  .software-list li{ font-size:14px; padding:8px 14px; }
+}
+
+@media (max-width:760px){
+  .hero{ padding:90px 0 70px; }
+}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.section{ padding:100px 0; }
+.section-tight{ padding:60px 0 100px; }
+
+.section-head{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  margin-bottom:56px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:28px;
+}
+
+.section-head h2{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(28px, 4vw, 42px);
+  letter-spacing:-0.01em;
+}
+
+.section-tag{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-mute);
+  
+  max-width:280px;
+}
+
+@media (max-width:640px){
+  .section-head{ flex-direction:column; align-items:center; }
+  .section-tag{ text-align:left; }
+}
+
+/* ============================================================
+   WORK TABS — toggle between 3D Work / Graphic Design in the
+   "Selected Work" section head. Centered side by side above
+   the project grid.
+   ============================================================ */
+.work-tab{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  color:var(--text-mute);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:10px 22px;
+  cursor:pointer;
+  transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.work-tab:hover{ color:var(--text); border-color:var(--text-mute); }
+.work-tab.active{
+  color:var(--bg);
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.work-tab:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+/* ============================================================
+   PROJECT GRID  — the signature interaction lives here
+   ============================================================ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  grid-auto-rows:1fr;
+  gap:10px;
+}
+
+.tile{
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  border-radius:var(--radius-lg);
+  cursor:pointer;
+}
+
+.tile.wide{ grid-column:span 2; grid-row:span 2; aspect-ratio:auto; }
+
+.tile img{
+  width:100%; height:100%;
+  object-fit:cover;
+  filter:saturate(0.75) contrast(1.02);
+  transform:scale(1.0);
+  transition:filter 0.5s ease, transform 0.6s ease;
+}
+
+.tile:hover img{
+  filter:saturate(1.05) contrast(1.05);
+  transform:scale(1.04);
+}
+
+.tile-wire{
+  position:absolute;
+  inset:10px;
+  border:1px solid var(--accent);
+  border-radius:12px;
+  opacity:0;
+  transition:opacity 0.3s ease;
+  pointer-events:none;
+}
+.tile:hover .tile-wire{ opacity:1; }
+.tile-wire::before,
+.tile-wire::after{
+  content:'';
+  position:absolute;
+  background:var(--accent);
+}
+.tile-wire::before{ top:0; left:0; width:14px; height:1px; }
+.tile-wire::after{ top:0; left:0; width:1px; height:14px; }
+
+.tile-info{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding:20px 22px;
+  background:linear-gradient(to top, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.0) 100%);
+  transform:translateY(8px);
+  opacity:0;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+}
+.tile:hover .tile-info{ transform:translateY(0); opacity:1; }
+
+.tile-title{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:19px;
+  margin-bottom:6px;
+}
+
+.tile-meta{
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  color:var(--text-dim);
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.tile-meta span{
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.tile-meta span::before{
+  content:'';
+  width:4px; height:4px;
+  background:var(--accent);
+  border-radius:50%;
+}
+
+@media (max-width:760px){
+  .grid{ grid-template-columns:repeat(2,1fr); }
+  .tile.wide{ grid-column:span 2; grid-row:span 1; aspect-ratio:4/3; }
+}
+@media (max-width:520px){
+  .grid{ grid-template-columns:1fr; }
+  .tile.wide{ grid-column:span 1; grid-row:span 1; aspect-ratio:4/3; }
+  .tile-info{ opacity:1; transform:translateY(0); position:relative; background:var(--bg-raised); }
+  .tile-wire{ display:none; }
+}
+
+/* ============================================================
+   PROJECT MODAL — frosted-glass popout, opens on tile click
+   Content is pulled from each tile's data-* attributes,
+   so editing a project's modal content = editing the tile's HTML.
+   ============================================================ */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+
+  background:rgba(10,10,12,0.55);
+  backdrop-filter:blur(14px) saturate(120%);
+  -webkit-backdrop-filter:blur(14px) saturate(120%);
+
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 0.35s ease, visibility 0.35s ease;
+}
+.modal-overlay.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-panel{
+  position:relative;
+  width:100%;
+  max-width:980px;
+  max-height:88vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+  border-radius:var(--radius-lg);
+
+  background:rgba(28,28,34,0.65);
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 30px 80px rgba(0,0,0,0.5);
+
+  transform:translateY(24px) scale(0.98);
+  transition:transform 0.4s cubic-bezier(.2,.8,.2,1);
+}
+.modal-overlay.open .modal-panel{
+  transform:translateY(0) scale(1);
+}
+
+.modal-close{
+  position:absolute;
+  top:16px; right:16px;
+  z-index:5;
+  width:40px; height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(14,14,18,0.55);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:var(--radius);
+  color:var(--text);
+  font-size:18px;
+  cursor:pointer;
+  transition:background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.modal-close:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#15110E;
+  transform:rotate(90deg);
+}
+
+.modal-media{
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  position:relative;
+}
+.modal-media img{
+  width:100%; height:100%;
+  object-fit:cover;
+}
+.modal-media.hidden{ display:none; }
+
+/* Responsive 16:9 YouTube embed */
+.modal-video{
+  width:100%;
+  aspect-ratio:16/9;
+  background:var(--bg);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  position:relative;
+}
+.modal-video.hidden{ display:none; }
+.modal-video iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+/* Project image grid below the video/description —
+   2 columns, rows flow automatically based on however
+   many images are listed in data-gallery. */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:2px;
+}
+.gallery-grid.hidden{ display:none; }
+
+.gallery-grid img{
+  width:100%;
+  height:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  display:block;
+  border-radius:var(--radius);
+}
+
+@media (max-width:520px){
+  .gallery-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+
+/* Optional 3-column variant of the main gallery grid, applied via
+   data-gallery-columns="3" on a project's tile (currently just
+   Science Lab). Falls back to 2 columns on small screens. */
+.gallery-grid.cols-3{
+  grid-template-columns:repeat(3, 1fr);
+}
+@media (max-width:520px){
+  .gallery-grid.cols-3{ grid-template-columns:repeat(2, 1fr); }
+}
+
+/* Optional 1:1 square variant of the main gallery grid, applied via
+   data-gallery-aspect="1:1" on a project's tile (currently just
+   Science Lab). */
+.gallery-grid.square img{
+  aspect-ratio:1/1;
+}
+
+/* Legacy 1:1 square image grid — shown underneath the main
+   16:9 gallery for projects that have a data-gallery-legacy
+   attribute on their tile (currently just Last Call). */
+.gallery-grid-legacy{
+  grid-template-columns:repeat(3, 1fr);
+  margin-top:24px;
+}
+.gallery-grid-legacy img{
+  aspect-ratio:1/1;
+}
+
+@media (max-width:520px){
+  .gallery-grid-legacy{ grid-template-columns:repeat(2, 1fr); }
+}
+
+/* Legacy tiles that support hovering (or tapping, on touch
+   devices) to swap between a render and its wireframe. Only
+   used when a tile has a matching data-gallery-legacy-wire
+   list — see .legacy-item markup built in JS below. */
+.legacy-item{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:var(--radius);
+  cursor:pointer;
+}
+.legacy-item img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+  transition:opacity 0.25s ease;
+}
+.legacy-item .legacy-wire{ opacity:0; }
+.legacy-item:hover .legacy-render{ opacity:0; }
+.legacy-item:hover .legacy-wire{ opacity:1; }
+.legacy-item.flipped .legacy-render{ opacity:0; }
+.legacy-item.flipped .legacy-wire{ opacity:1; }
+
+/* Title + short paragraph shown above the legacy grid, giving
+   breathing room between it and the 16:9 gallery above. Only
+   rendered when a tile has data-gallery-legacy-title and/or
+   data-gallery-legacy-desc set. */
+.gallery-legacy-header{
+  padding:40px 44px 0;
+}
+.gallery-legacy-header.hidden{ display:none; }
+.gallery-legacy-header .legacy-heading{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(20px, 3vw, 26px);
+  letter-spacing:-0.01em;
+  margin-bottom:10px;
+}
+.gallery-legacy-header .legacy-text{
+  color:var(--text-dim);
+  font-size:15px;
+  max-width:640px;
+  line-height:1.7;
+}
+
+@media (max-width:520px){
+  .gallery-legacy-header{ padding:28px 24px 0; }
+}
+
+/* "More props" section — a short title followed by one or more
+   full-width 16:9 tiles, shown after the legacy grid. Only
+   rendered when a tile has a data-gallery-props attribute. */
+.gallery-props-header{
+  padding:40px 44px 0;
+}
+.gallery-props-header.hidden{ display:none; }
+.gallery-props-header .props-heading{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(20px, 3vw, 26px);
+  letter-spacing:-0.01em;
+}
+
+@media (max-width:520px){
+  .gallery-props-header{ padding:28px 24px 0; }
+}
+
+.gallery-grid-props{
+  grid-template-columns:1fr;
+  margin-top:24px;
+}
+.gallery-grid-props img{
+  aspect-ratio:16/9;
+}
+
+/* "Story" gallery — a stack of full-width 16:9 images with an
+   optional text block directly under any of them, built from a
+   project's data-gallery-story / data-gallery-story-text
+   attributes (currently just MINDSET). Reuses .gallery-grid's
+   single-column background/gap for the same thin-seam look as
+   the rest of the modal. */
+.gallery-story-header{
+  padding:40px 44px 0;
+}
+.gallery-story-header.hidden{ display:none; }
+.gallery-story-header .story-heading{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(20px, 3vw, 26px);
+  letter-spacing:-0.01em;
+}
+@media (max-width:520px){
+  .gallery-story-header{ padding:28px 24px 0; }
+}
+
+.gallery-story{
+  grid-template-columns:1fr;
+  margin-top:24px;
+}
+.gallery-story img{
+  aspect-ratio:297/210;
+}
+.gallery-story-text{
+  padding:28px 44px;
+  background:var(--bg-raised);
+  color:var(--text-dim);
+  font-size:15px;
+  line-height:1.7;
+}
+@media (max-width:520px){
+  .gallery-story-text{ padding:22px 24px; }
+}
+
+.scroll-hint{
+  text-align:center;
+  padding:14px 0;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--text-mute);
+  background:var(--bg-raised);
+}
+.scroll-hint.hidden{ display:none; }
+.scroll-hint span{
+  display:inline-block;
+  animation:bobDown 1.6s ease-in-out infinite;
+}
+@keyframes bobDown{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(4px); }
+}
+
+.modal-body{
+  padding:40px 44px 44px;
+}
+
+.modal-eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--accent);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+.modal-title{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(26px, 4vw, 38px);
+  letter-spacing:-0.01em;
+  margin-bottom:18px;
+}
+
+.modal-meta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:24px;
+}
+.modal-meta span{
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-dim);
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.03);
+  padding:6px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.modal-meta span::before{
+  content:'';
+  width:5px; height:5px;
+  background:var(--accent);
+  border-radius:50%;
+}
+
+.modal-desc{
+  color:var(--text-dim);
+  font-size:16px;
+  max-width:640px;
+  line-height:1.7;
+}
+
+.modal-nav{
+  display:flex;
+  justify-content:space-between;
+  margin-top:36px;
+  padding-top:24px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.modal-nav button{
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--text-dim);
+  background:none;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition:color 0.2s ease;
+}
+.modal-nav button:hover{ color:var(--accent); }
+
+/* PDF download section — sits directly below the last populated
+   image gallery, only for projects with a data-pdf attribute
+   on their tile. Optional centered note text sits above the
+   button (data-pdf-note). */
+.modal-pdf{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+  padding:32px 44px 0;
+}
+.modal-pdf.hidden{ display:none; }
+.modal-pdf-note{
+  text-align:center;
+  max-width:480px;
+  color:var(--text-dim);
+  font-size:14px;
+  line-height:1.6;
+}
+.modal-pdf-note:empty{ display:none; }
+.modal-pdf a{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-mono);
+  font-size:13px;
+  letter-spacing:0.03em;
+  padding:14px 26px;
+  border:1px solid var(--accent);
+  border-radius:var(--radius);
+  background:var(--accent);
+  color:#15110E;
+  font-weight:500;
+  transition:all 0.2s ease;
+}
+.modal-pdf a:hover{
+  background:transparent;
+  color:var(--accent);
+}
+
+body.modal-locked{ overflow:hidden; }
+
+/* Sketchfab 3D viewer embed — shown at the very end of the popout,
+   only for projects with a data-sketchfab attribute on their tile
+   (currently Science Lab and Rifle Game-Ready). */
+.modal-sketchfab-header{
+  padding:40px 44px 0;
+}
+.modal-sketchfab-header.hidden{ display:none; }
+.modal-sketchfab-header .sketchfab-heading{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(20px, 3vw, 26px);
+  letter-spacing:-0.01em;
+}
+
+.modal-sketchfab{
+  width:100%;
+  aspect-ratio:16/9;
+  background:var(--bg);
+  margin-top:24px;
+}
+.modal-sketchfab.hidden{ display:none; }
+.modal-sketchfab iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
+
+@media (max-width:640px){
+  .modal-sketchfab-header{ padding:28px 24px 0; }
+}
+
+@media (max-width:640px){
+  .modal-body{ padding:28px 24px 32px; }
+  .modal-pdf{ padding:24px 24px 0; }
+  .modal-overlay{ padding:0; }
+  .modal-panel{ max-height:100vh; height:100%; max-width:100%; border-radius:0; }
+}
+
+/* ============================================================
+   CONTACT / FOOTER
+   ============================================================ */
+.contact{
+  background:var(--bg-raised);
+  border-top:1px solid var(--line);
+  padding:100px 0 60px;
+}
+
+.contact h2{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(32px, 6vw, 64px);
+  max-width:760px;
+  letter-spacing:-0.01em;
+}
+
+.contact-row{
+  margin-top:48px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:32px;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--line);
+}
+
+.contact-links{
+  display:flex;
+  gap:28px;
+  flex-wrap:wrap;
+  font-family:var(--font-mono);
+  font-size:14px;
+}
+.contact-links a{
+  color:var(--text-dim);
+  border-bottom:1px solid transparent;
+  transition:color 0.2s ease, border-color 0.2s ease;
+}
+.contact-links a:hover{
+  color:var(--accent);
+  border-color:var(--accent);
+}
+
+.footer-bottom{
+  padding-top:28px;
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-mute);
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition-duration:0.01ms !important; animation-duration:0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV — edit your name and links here
+     ============================================================ -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo"><span class="dot"></span>JOE WALKER</a>
+      <button class="navtoggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <div class="navlinks" id="navLinks">
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     HERO — edit headline, subtext, and stats
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>Hi, <em>I'm Joe</em><br>this is my portfolio</h1>
+        <p class="hero-sub">
+          I'm a creative generalist — covering graphic design, brand identity, 3D design and visualization.
+        </p>
+        <div class="hero-actions">
+          <a href="#work" class="btn btn-primary">View Work →</a>
+          <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="hero-photo">
+        <img src="" alt="">
+      </div>
+    </div>
+
+    <div class="hero-software">
+      <div class="software-label">Software</div>
+      <ul class="software-list">
+        <li><img src="./img/icons/aftereffects.png" alt="" class="software-icon"> After Effects</li>
+        <li><img src="./img/icons/photoshop.png" alt="" class="software-icon"> Photoshop</li>
+        <li><img src="./img/icons/illustrator.png" alt="" class="software-icon"> Illustrator</li>
+        <li><img src="./img/icons/indesign.png" alt="" class="software-icon"> InDesign</li>
+      </ul>
+      <ul class="software-list">
+        <li><img src="./img/icons/maya.png" alt="" class="software-icon"> Autodesk Maya</li>
+        <li><img src="./img/icons/unreal.png" alt="" class="software-icon"> Unreal Engine 5</li>
+        <li><img src="./img/icons/substance.png" alt="" class="software-icon"> Substance Painter</li>
+        <li><img src="./img/icons/nuke.png" alt="" class="software-icon"> NukeX</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WORK / PROJECT GRID
+     Each .tile is one project. To add your own:
+     1. Replace the image src (this is the thumbnail shown in the grid)
+     2. Replace tile-title and tile-meta spans (software, polycount, tags, etc.)
+     3. Add class="wide" to a tile if you want it to span 2 columns
+     4. Edit data-desc to set the longer description shown in the popout
+     5. Edit data-youtube to embed a YouTube video at the top of the
+        popout. Use just the video ID, not the full URL —
+        e.g. for https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        use data-youtube="dQw4w9WgXcQ"
+        Leave this attribute out entirely if a project has no video;
+        the popout will show the first gallery image at the top instead.
+     6. Edit data-gallery to list ALL images for that project, separated
+        by commas. These show in a 2-column, 16:9 grid below the
+        video/description inside the popout, with rows added
+        automatically as needed.
+        e.g. data-gallery="shot1.jpg, shot2.jpg, wireframe.jpg"
+     7. Optionally add data-gallery-legacy (same comma-separated format)
+        to show a second 3-column, 1:1 square image grid underneath the
+        main gallery. Leave this attribute out entirely for projects
+        that don't need it.
+     8. Optionally also add data-gallery-legacy-wire — a comma-separated
+        list of wireframe images, in the SAME ORDER and matching the
+        SAME COUNT as data-gallery-legacy. Each legacy tile will then
+        swap from its render to its wireframe on hover (desktop) or tap
+        (mobile). If this attribute is missing, or its count doesn't
+        match data-gallery-legacy, those tiles just show the render
+        with no swap.
+     9. Optionally add data-gallery-legacy-title and/or
+        data-gallery-legacy-desc to show a short heading and paragraph
+        above the legacy grid (only appears if data-gallery-legacy has
+        images and at least one of these two attributes is set).
+        If a project only has one image, just list that one image.
+     10. Optionally add data-gallery-props (comma-separated list, same
+         format as data-gallery) to show full-width 16:9 tile(s)
+         UNDERNEATH the main gallery grid (and legacy grid, if
+         present). Add data-gallery-props-title to show a short
+         heading above them — leave it out for no heading. Leave
+         data-gallery-props out entirely for projects that don't need
+         this section.
+     11. Optionally add data-gallery-top (comma-separated list, same
+         format as data-gallery) to show full-width 16:9 tile(s) ABOVE
+         the main 2-column gallery grid, right under the title/description.
+         Leave data-gallery-top out entirely for projects that don't
+         need it.
+     12. Optionally add data-gallery-columns="3" to make the main
+         gallery grid (data-gallery) use 3 columns instead of the
+         default 2. Leave this attribute out for the standard 2-column
+         layout.
+     13. Optionally add data-gallery-aspect="1:1" to make the main
+         gallery grid (data-gallery) use square tiles instead of the
+         default 16:9. Leave this attribute out for the standard
+         16:9 layout.
+     14. Optionally add data-pdf with a path to a PDF file to show a
+         centered "Download Project PDF" button directly below the
+         last image gallery in the popout. Leave this attribute out
+         entirely for projects that don't need it. Optionally also add
+         data-pdf-note for a short centered line of text shown above
+         the button.
+     15. Optionally add data-sketchfab with a Sketchfab embed URL
+         (Share → Embed → copy the URL used in the iframe's src) to
+         show a 3D viewer directly below the last image gallery (and
+         the PDF button, if present) in the popout. Customise the
+         heading with data-sketchfab-title — if left out it defaults
+         to "3D Viewer". Leave data-sketchfab out entirely for
+         projects that don't need it.
+     16. Optionally add a <div class="story-items"> block (see the
+         MINDSET tile below for an example) containing one
+         <div class="story-item" data-img="..." data-caption="..."></div>
+         per image, to show a stack of full-width 16:9 images with an
+         optional caption directly underneath each one, at the very
+         end of the popout. Put the caption text INSIDE the
+         data-caption="" attribute, not between the div tags. Leave
+         data-caption empty (or drop it) to show no caption under a
+         particular image. Optionally add data-gallery-story-title on
+         the tile itself for a short heading above the whole section.
+         Leave the whole story-items block out entirely for projects
+         that don't need it.
+     ============================================================ -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <button type="button" class="work-tab active" data-target="projectGrid">3D Work</button>
+      <button type="button" class="work-tab" data-target="graphicGrid">Graphic Design</button>
+    </div>
+
+    <div id="workGridsWrap">
+
+    <div class="grid work-grid-panel" id="projectGrid">
+
+      <div class="tile wide"
+           data-desc="This was my final year university project. I modeled all the buildings in Maya, textured them in substance painter and built the environment in Unreal Engine 5. 
+           I also made some of the props and used my graphic design abilities to make the signage. In this project, I learned how to optimise models and I created a modular air duct system with trimsheets.
+           If you would like to know more about the project and what I've learned, please see the pdf at the end"
+           data-youtube="T21hZxIixEQ"
+           data-gallery="./img/FYP/MASTER.0324.jpeg, ./img/FYP/MASTER.0452.jpeg, ./img/FYP/MASTER.0773.jpeg, ./img/FYP/MASTER.0969.jpeg, ./img/FYP/MASTER.1417.jpeg, ./img/FYP/MASTER.1760.jpeg,
+           ./img/FYP/MASTER.1986.jpeg, ./img/FYP/MASTER.3212.jpeg"
+           data-gallery-legacy="
+            ./img/FYP/Props/Building6/building6.jpg, 
+            ./img/FYP/Props/Aircon/Aircon.jpg,
+            ./img/FYP/Props/ModularPipes/modularpipes.jpg,
+            ./img/FYP/Props/Keg/Keg.jpg,
+            ./img/FYP/Props/AirDucts/Airducts.jpg,
+            ./img/FYP/Props/StreetBin/streetbin.jpg,
+            "
+           data-gallery-legacy-wire="
+            ./img/FYP/Props/Building6/building6Wf.jpg, 
+            ./img/FYP/Props/Aircon/AirconWF.jpg,
+            ./img/FYP/Props/ModularPipes/modularpipesWf.jpg,
+            ./img/FYP/Props/Keg/KegWf.jpg,
+            ./img/FYP/Props/AirDucts/AirductWF.jpg,
+            ./img/FYP/Props/StreetBin/streetbinWf.jpg,
+
+            "
+           data-gallery-legacy-title="Renders / Wireframe"
+           data-gallery-legacy-desc="Hover (or tap on mobile) each tile below to switch between a render and its wireframe, showing optimisation techniques and topology."
+           data-gallery-props="./img/FYP/Props/Moreprops.png"
+           data-gallery-props-title="More props"
+           data-pdf="./img/eval.pdf"
+           data-pdf-note="If you would like to know more about the project and how I evaluated myself, please see the PDF below.">
+        <img src="./img/FYP/MASTER.1417.jpeg" alt="Japanese street and restaurant environment, game-ready 3D scene">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Last Call</div>
+          <div class="tile-meta">
+            <span>Maya</span>
+            <span>UE5</span>
+            <span>Substance Painter</span>
+            <span>Game-Ready Models</span>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="For this project, the task was to model an object and convincingly set it in recorded footage. This developed my 3D modelling, texturing and lighting abilities; furthermore, I rebuilt the AOV passes in Nuke to maximise level of control."
+           data-youtube="0QPRWqqQwZA"
+           data-gallery="./img/DSScene/DS_4kRender.jpg, ./img/DSScene/DSLite.jpg">
+        <img src="./img/DSScene/DS_4kRender.jpg" alt="Project two thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">DS Lite CG Scene</div>
+          <div class="tile-meta">
+            <span>Maya</span>
+            <span>VFX</span>
+            <span>Arnold</span>
+            <span>Hard-Surface</span>
+            <span>PBR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="This was a group project of 3 people. We were tasked with creating a VFX scene that incorporates a 3D model and a simulation. 
+           I was responsible for the microscope model, matching the lighting with the shot and the compositing in NukeX"
+           data-youtube="uAC6Emf_ZT8"
+           data-gallery="./img/Science Lab Scene/Model2.jpg, ./img/Science Lab Scene/Model3.jpg, ./img/Science Lab Scene/Model4.jpg"
+           data-gallery-columns="3"
+           data-gallery-aspect="1:1"
+           data-gallery-top="./img/Science Lab Scene/Model1.jpg"
+           data-sketchfab="https://sketchfab.com/models/d189189ebfb7427f918b56c8aa766731/embed"
+           data-sketchfab-title="3D Viewer">
+        <img src="./img/Science Lab Scene/Submission_00307.png" alt="Project three thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Science Lab CG Scene</div>
+          <div class="tile-meta">
+            <span>Maya</span>
+            <span>Arnold</span>
+            <span>Nuke</span>
+            <span>Houdini</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="This was a personal project inspired from Red Dead Redemption 2. This game-ready object is intended to be viewed from a distance, like in a 3rd person game.
+           I aimed to keep the polycount as low as possible without a loss of quality."
+           data-gallery="./img/CarbineRepater/MainRender.png, ./img/CarbineRepater/Carbine.png, ./img/CarbineRepater/Carbine2.png, 
+           ./img/CarbineRepater/Carbine3.png, ./img/CarbineRepater/Carbine4.png,"
+           data-gallery-props="./img/CarbineRepater/TextureMaps.png, ./img/CarbineRepater/UV3D.png, ./img/CarbineRepater/Wireframe.png "
+           data-sketchfab="https://sketchfab.com/models/b8ec13cc0bfb4cf986ceb3d52741d3e4/embed"
+           data-sketchfab-title="3D Viewer">
+        <img src="./img/CarbineRepater/Carbine.png" alt="Project four thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Game-Ready Rifle</div>
+          <div class="tile-meta">
+            <span>Maya</span>
+            <span>Substance</span>
+            <span>Prop</span>
+            <span>Polycount: 12224</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile wide"
+           data-desc="This was a group project. We were tasked to create a bedroom environment with a specific theme and to create a 3D model each (mine was the sniper rifle). I was repsonsible for the workbench asset placements and the lighting."
+           data-youtube="M8pJSYrRdyA"
+           data-gallery="
+           ./img/VED Screenshots/HighresScreenshot00001.png,
+           ./img/VED Screenshots/HighresScreenshot00002.png,
+           ./img/VED Screenshots/HighresScreenshot00003.png,
+           ./img/VED Screenshots/HighresScreenshot00004.png,
+           ./img/VED Screenshots/HighresScreenshot00005.png,
+           ./img/VED Screenshots/HighresScreenshot00006.png,
+           ./img/VED Screenshots/HighresScreenshot00007.png,
+           ./img/VED Screenshots/HighresScreenshot00008.png,
+           ">
+        <img src="./img/VED Screenshots/HighresScreenshot00003.png" alt="Project five thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Survivors Hideout</div>
+          <div class="tile-meta">
+            <span>UE5</span>
+            <span>Maya</span>
+            <span>Environment Design</span>
+            <span>Apocalyptic</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="I used Maya to create an action animation of a spinning back kick and an acting animation using The Dark Knight as reference. I used houdini to create 2 simulations: a rigid body sim of a mug breaking and a fluid simulation of an ice-cream machine."
+           data-youtube="LG6B7v7orhA">
+        <img src="./img/AnimationProject.png" alt="Project six thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Animations & Simulations</div>
+          <div class="tile-meta">
+            <span>Maya</span>
+            <span>Houdini</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============================================================
+         GRAPHIC DESIGN GRID — same rules as the 3D Work grid above
+         apply here: each .tile is one project, using the same
+         data-desc / data-gallery / data-youtube / etc. attributes,
+         the same "wide" class option, and the same modal popout.
+         The three tiles below are placeholders — swap the image src,
+         tile-title, tile-meta and data-desc for your real graphic
+         design projects (e.g. MINDSET, Lyonic Scots), and delete
+         or duplicate tiles as needed. Starts hidden; the "Graphic
+         Design" tab in the section head above reveals it.
+         ============================================================ -->
+    <div class="grid work-grid-panel" id="graphicGrid" style="display:none;">
+
+      <div class="tile wide"
+           data-desc="In this project, I redesigned a logo and designed a brand identity system for a charity called MINDSET — a charity tackling men's mental health."
+           data-gallery-story-title="Brand Story">
+
+        <!-- STORY IMAGES + CAPTIONS
+             One block per image, in the order they should appear.
+             - data-img: path to the image
+             - data-caption: text shown under it in the modal (leave
+               the attribute empty, or delete it, to show no caption
+               under that image). Put caption text INSIDE the quotes
+               of data-caption="", not between the div's opening and
+               closing tags.
+             This whole block is hidden from the page — it's just
+             data the JS reads to build the "Brand Story" section. -->
+        <div class="story-items" hidden>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_01.png"
+               data-caption="A cover page to spark a little interest."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_02.png"
+               data-caption="Detailing the brand information back to the client is like a waiter speaking your order to you — confirms exactly what you want and is reassuring."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_03.png"
+               data-caption="A breakdown of the problems with their current logo. I made sure to be objective and give clear points."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_04.png"
+               data-caption="The new logo is presented."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/drawings.jpg"
+               data-caption="After reading the brief and understanding MINDSET's values and mission, I decided an abstract logo mark was fitting because the whole idea of mental health is abstract in itself. I'm not the best at drawing, however, it does help explore ideas — bridges, castles, ascending stairs, jagged paths that ease into smoothness, these were some ideas all relating to challenge, strength and masculinity."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_05.png"
+               data-caption="Breaking down my reasoning for the logo redesign."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_06.png"
+               data-caption="A brand comparison helps the client visualise their position in the competitor space."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_07.png"
+               data-caption="The greysacle and inverts show it retains readability and works well in high contrast. "></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_08.png"
+               data-caption=""></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_09.png"
+               data-caption="A demonstration of how the logo can be used online and what sizes to use."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_10.png"
+               data-caption="The colour palette, which includes RGB, CMYK and Pantone, also has instructions for designers with using the tones. "></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_11.png"
+               data-caption=""></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_12.png"
+               data-caption=""></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_13.png"
+               data-caption="These are some business cards I made in Illustrator and Photoshop"></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Proposal/Branding Proposal_Page_14.png"
+               data-caption="I made some more mockups and gave some tips on social media strategy."></div>
+          <div class="story-item"
+               data-img="./img/graphicDesign/mindset/Logoandelements.png"
+               data-caption="This is the illustrator file I sent to the client. I broke down the elements of the logos so that other designers can easily create from it."></div>
+        </div>
+
+        <img src="./img/graphicDesign/mindset/Thumbnail.png" alt="Graphic design project one thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">MINDSET Charity</div>
+          <div class="tile-meta">
+            <span>Illustrator</span>
+            <span>InDesign</span>
+            <span>Photoshop</span>
+            <span>Branding</span>
+            <span>Graphic Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="Add a longer description of this graphic design project here — the brief, your role, and the tools used.">
+        <img src="./img/graphicDesign/mindset/comingsoon.png" alt="Graphic design project two thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Coming soon</div>
+          <div class="tile-meta">
+          </div>
+        </div>
+      </div>
+
+      <div class="tile"
+           data-desc="Add a longer description of this graphic design project here — the brief, your role, and the tools used.">
+        <img src="./img/graphicDesign/mindset/comingsoon.png" alt="Graphic design project three thumbnail">
+        <div class="tile-wire"></div>
+        <div class="tile-info">
+          <div class="tile-title">Coming soon</div>
+          <div class="tile-meta">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECT MODAL (popout) — do not duplicate this per project.
+     One modal is reused for every tile; content is filled in by
+     JS from each tile's video, image(s), title, meta tags and
+     data-desc. Scroll down inside the popout to see the image grid.
+     ============================================================ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-panel" id="modalPanel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close project">✕</button>
+
+    <!-- Shows only if the project's tile has a data-youtube ID -->
+    <div class="modal-video hidden" id="modalVideo">
+      <iframe id="modalVideoFrame" src="" title="Project video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <!-- Shows only if there's no video — falls back to the first image -->
+    <div class="modal-media hidden" id="modalMedia">
+      <img id="modalImage" src="" alt="">
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-eyebrow">Project Detail</div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+    </div>
+
+    <div class="scroll-hint hidden" id="scrollHint"><span>▾</span> Scroll for more images</div>
+
+    <!-- Full-width 16:9 feature tile(s) shown ABOVE the main gallery
+         grid — only populated for projects with a data-gallery-top
+         attribute on their tile (currently just Science Lab). -->
+    <div class="gallery-grid gallery-grid-props hidden" id="galleryGridTop"></div>
+
+    <!-- 2-column, 16:9 image grid, filled in from data-gallery -->
+    <div class="gallery-grid hidden" id="galleryGrid"></div>
+
+    <!-- Title + short paragraph shown above the legacy grid, only
+         populated for projects with data-gallery-legacy-title and/or
+         data-gallery-legacy-desc set on their tile -->
+    <div class="gallery-legacy-header hidden" id="galleryLegacyHeader">
+      <div class="legacy-heading" id="galleryLegacyHeading"></div>
+      <p class="legacy-text" id="galleryLegacyText"></p>
+    </div>
+
+    <!-- Legacy 3-column, 1:1 square image grid — only populated for
+         projects with a data-gallery-legacy attribute on their tile -->
+    <div class="gallery-grid gallery-grid-legacy hidden" id="galleryGridLegacy"></div>
+
+    <!-- "More props" title + full-width 16:9 tile(s), only populated
+         for projects with a data-gallery-props attribute on their tile -->
+    <div class="gallery-props-header hidden" id="galleryPropsHeader">
+      <div class="props-heading" id="galleryPropsHeading"></div>
+    </div>
+    <div class="gallery-grid gallery-grid-props hidden" id="galleryGridProps"></div>
+
+    <!-- "Story" section — full-width 16:9 images with an optional
+         text block under any of them, only populated for projects
+         with a story-items block inside their tile (currently just
+         MINDSET). -->
+    <div class="gallery-story-header hidden" id="galleryStoryHeader">
+      <div class="story-heading" id="galleryStoryHeading"></div>
+    </div>
+    <div class="gallery-grid gallery-story hidden" id="galleryGridStory"></div>
+
+    <!-- PDF download — sits right below the last image gallery.
+         Only shown for projects with a data-pdf attribute on their
+         tile (currently just Last Call) -->
+    <div class="modal-pdf hidden" id="modalPdf">
+      <p class="modal-pdf-note" id="modalPdfNote"></p>
+      <a id="modalPdfLink" href="" download>↓ Project Evaluation PDF</a>
+    </div>
+
+    <!-- Sketchfab 3D viewer — sits directly below the last image
+         gallery (and PDF button, if present). Only shown for
+         projects with a data-sketchfab attribute on their tile
+         (currently Science Lab and Rifle Game-Ready) -->
+    <div class="modal-sketchfab-header hidden" id="modalSketchfabHeader">
+      <div class="sketchfab-heading" id="modalSketchfabHeading"></div>
+    </div>
+    <div class="modal-sketchfab hidden" id="modalSketchfab">
+      <iframe id="modalSketchfabFrame" src="" title="3D model viewer" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen></iframe>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-nav">
+        <button id="modalPrev">← Previous Project</button>
+        <button id="modalNext">Next Project →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONTACT — edit email and social links
+     ============================================================ -->
+<footer class="contact" id="contact">
+  <div class="wrap">
+    <h2>Got a project in mind?<br>Let's build it.</h2>
+
+    <div class="contact-row">
+      <div class="contact-links">
+        <a href="mailto:walker.j17@outlook.com">Email</a>
+        <a href="https://www.linkedin.com/in/joe-walker-b5451a371">LinkedIn</a>
+        <a href="https://www.instagram.com/jowqui/">Instagram</a>
+      </div>
+      <a href="mailto:hello@example.com" class="btn btn-primary">Email Me →</a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Joe Walker</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+    });
+  });
+
+  /* ---------------------------------------------------------
+     PROJECT MODAL
+     Pulls content straight from each .tile in #projectGrid,
+     so there is only one place to edit project info (the tile
+     itself) — the popout just mirrors it.
+
+     Layout: video (if data-youtube is set) at the top, then
+     title/description, then every image in data-gallery laid
+     out in a 3-column grid — rows are added automatically
+     depending on how many images are listed.
+     --------------------------------------------------------- */
+  let activeGridId = 'projectGrid';
+  let tiles         = Array.from(document.querySelectorAll('#' + activeGridId + ' .tile'));
+  const overlay        = document.getElementById('modalOverlay');
+  const panel          = document.getElementById('modalPanel');
+  const closeBtn        = document.getElementById('modalClose');
+  const prevBtn         = document.getElementById('modalPrev');
+  const nextBtn         = document.getElementById('modalNext');
+  const modalVideo      = document.getElementById('modalVideo');
+  const modalVideoFrame = document.getElementById('modalVideoFrame');
+  const modalMedia      = document.getElementById('modalMedia');
+  const modalImage      = document.getElementById('modalImage');
+  const modalTitle      = document.getElementById('modalTitle');
+  const modalMeta       = document.getElementById('modalMeta');
+  const modalDesc       = document.getElementById('modalDesc');
+  const scrollHint      = document.getElementById('scrollHint');
+  const galleryGrid     = document.getElementById('galleryGrid');
+  const galleryGridTop  = document.getElementById('galleryGridTop');
+  const galleryGridLegacy = document.getElementById('galleryGridLegacy');
+  const galleryLegacyHeader  = document.getElementById('galleryLegacyHeader');
+  const galleryLegacyHeading = document.getElementById('galleryLegacyHeading');
+  const galleryLegacyText    = document.getElementById('galleryLegacyText');
+  const galleryPropsHeader  = document.getElementById('galleryPropsHeader');
+  const galleryPropsHeading = document.getElementById('galleryPropsHeading');
+  const galleryGridProps    = document.getElementById('galleryGridProps');
+  const galleryStoryHeader  = document.getElementById('galleryStoryHeader');
+  const galleryStoryHeading = document.getElementById('galleryStoryHeading');
+  const galleryGridStory    = document.getElementById('galleryGridStory');
+  const modalPdf         = document.getElementById('modalPdf');
+  const modalPdfNote     = document.getElementById('modalPdfNote');
+  const modalPdfLink     = document.getElementById('modalPdfLink');
+  const modalSketchfabHeader  = document.getElementById('modalSketchfabHeader');
+  const modalSketchfabHeading = document.getElementById('modalSketchfabHeading');
+  const modalSketchfab        = document.getElementById('modalSketchfab');
+  const modalSketchfabFrame   = document.getElementById('modalSketchfabFrame');
+
+  let currentProject = 0;
+  let lastFocused     = null;
+
+  function getProjectImages(tile){
+    const galleryAttr = tile.getAttribute('data-gallery');
+    if(galleryAttr && galleryAttr.trim().length){
+      return galleryAttr.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    const fallback = tile.querySelector('img')?.getAttribute('src');
+    return fallback ? [fallback] : [];
+  }
+
+  function renderModal(index){
+    const tile = tiles[index];
+    if(!tile) return;
+
+    currentProject = index;
+    panel.scrollTop = 0;
+
+    const youtubeId = tile.getAttribute('data-youtube');
+    const images     = getProjectImages(tile);
+    const tileAlt    = tile.querySelector('img')?.getAttribute('alt') || '';
+    const title      = tile.querySelector('.tile-title')?.textContent.trim() || '';
+    const metaSpans  = tile.querySelectorAll('.tile-meta span');
+    const desc       = tile.getAttribute('data-desc') || '';
+
+    /* Video vs. fallback static image at the top */
+    if(youtubeId){
+      modalVideoFrame.src = 'https://www.youtube.com/embed/' + youtubeId;
+      modalVideo.classList.remove('hidden');
+      modalMedia.classList.add('hidden');
+    } else {
+      modalVideoFrame.src = '';
+      modalVideo.classList.add('hidden');
+      modalImage.src = images[0] || '';
+      modalImage.alt = tileAlt || title;
+      modalMedia.classList.remove('hidden');
+    }
+
+    modalTitle.textContent = title;
+    modalDesc.textContent  = desc;
+
+    modalMeta.innerHTML = '';
+    metaSpans.forEach(span => {
+      const tag = document.createElement('span');
+      tag.textContent = span.textContent.trim();
+      modalMeta.appendChild(tag);
+    });
+
+    /* Full-width 16:9 feature tile(s) shown above the main gallery
+       grid — only for projects with a data-gallery-top attribute. */
+    const topAttr = tile.getAttribute('data-gallery-top');
+    const topImages = topAttr && topAttr.trim().length
+      ? topAttr.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+
+    galleryGridTop.innerHTML = '';
+    if(topImages.length){
+      topImages.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title + ' — feature ' + (i + 1);
+        img.loading = 'lazy';
+        galleryGridTop.appendChild(img);
+      });
+      galleryGridTop.classList.remove('hidden');
+      scrollHint.classList.remove('hidden');
+    } else {
+      galleryGridTop.classList.add('hidden');
+    }
+
+    /* 3-column image grid underneath.
+       If there's a video, show every gallery image below it — but
+       only images explicitly listed in data-gallery (no thumbnail
+       fallback here, since that's just the tile's grid thumbnail,
+       not a real gallery shot).
+       If there's no video, the first image is already shown up top,
+       so only grid the remaining images (if any) to avoid repeats. */
+    const galleryAttr = tile.getAttribute('data-gallery');
+    const explicitImages = galleryAttr && galleryAttr.trim().length
+      ? galleryAttr.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+    const gridImages = youtubeId ? explicitImages : images.slice(1);
+
+    galleryGrid.innerHTML = '';
+    galleryGrid.classList.toggle('cols-3', tile.getAttribute('data-gallery-columns') === '3');
+    galleryGrid.classList.toggle('square', tile.getAttribute('data-gallery-aspect') === '1:1');
+    if(gridImages.length){
+      gridImages.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title + ' — image ' + (i + 1);
+        img.loading = 'lazy';
+        galleryGrid.appendChild(img);
+      });
+      galleryGrid.classList.remove('hidden');
+      scrollHint.classList.remove('hidden');
+    } else {
+      galleryGrid.classList.add('hidden');
+      scrollHint.classList.add('hidden');
+    }
+
+    /* Legacy 1:1 square grid underneath — only shown for projects
+       whose tile has a data-gallery-legacy attribute set. If a
+       matching data-gallery-legacy-wire list is also present (same
+       length), each tile becomes hoverable/tappable to swap between
+       its render and its wireframe. */
+    const legacyAttr = tile.getAttribute('data-gallery-legacy');
+    const legacyImages = legacyAttr && legacyAttr.trim().length
+      ? legacyAttr.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+
+    const legacyWireAttr = tile.getAttribute('data-gallery-legacy-wire');
+    const legacyWireImages = legacyWireAttr && legacyWireAttr.trim().length
+      ? legacyWireAttr.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+
+    const hasWirePairs = legacyWireImages.length === legacyImages.length && legacyImages.length > 0;
+
+    /* Title + short paragraph above the legacy grid. */
+    const legacyTitle = tile.getAttribute('data-gallery-legacy-title') || '';
+    const legacyDesc  = tile.getAttribute('data-gallery-legacy-desc') || '';
+
+    galleryLegacyHeading.textContent = legacyTitle;
+    galleryLegacyText.textContent    = legacyDesc;
+
+    if(legacyImages.length && (legacyTitle || legacyDesc)){
+      galleryLegacyHeader.classList.remove('hidden');
+    } else {
+      galleryLegacyHeader.classList.add('hidden');
+    }
+
+    galleryGridLegacy.innerHTML = '';
+    if(legacyImages.length){
+      legacyImages.forEach((src, i) => {
+        if(hasWirePairs){
+          const item = document.createElement('div');
+          item.className = 'legacy-item';
+
+          const render = document.createElement('img');
+          render.className = 'legacy-render';
+          render.src = src;
+          render.alt = title + ' — render ' + (i + 1);
+          render.loading = 'lazy';
+
+          const wire = document.createElement('img');
+          wire.className = 'legacy-wire';
+          wire.src = legacyWireImages[i];
+          wire.alt = title + ' — wireframe ' + (i + 1);
+          wire.loading = 'lazy';
+
+          /* Tap to toggle on touch devices; hover handles desktop via CSS. */
+          item.addEventListener('click', () => item.classList.toggle('flipped'));
+
+          item.appendChild(render);
+          item.appendChild(wire);
+          galleryGridLegacy.appendChild(item);
+        } else {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = title + ' — image ' + (i + 1);
+          img.loading = 'lazy';
+          galleryGridLegacy.appendChild(img);
+        }
+      });
+      galleryGridLegacy.classList.remove('hidden');
+      scrollHint.classList.remove('hidden');
+    } else {
+      galleryGridLegacy.classList.add('hidden');
+    }
+
+    /* "More props" section — short title + full-width 16:9 tile(s),
+       only shown for projects whose tile has a data-gallery-props
+       attribute set. */
+    const propsAttr = tile.getAttribute('data-gallery-props');
+    const propsImages = propsAttr && propsAttr.trim().length
+      ? propsAttr.split(',').map(s => s.trim()).filter(Boolean)
+      : [];
+    const propsTitle = tile.getAttribute('data-gallery-props-title') || '';
+
+    galleryGridProps.innerHTML = '';
+    if(propsImages.length){
+      galleryPropsHeading.textContent = propsTitle;
+      galleryPropsHeader.classList.toggle('hidden', !propsTitle.trim().length);
+
+      propsImages.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title + ' — prop ' + (i + 1);
+        img.loading = 'lazy';
+        galleryGridProps.appendChild(img);
+      });
+      galleryGridProps.classList.remove('hidden');
+      scrollHint.classList.remove('hidden');
+    } else {
+      galleryPropsHeader.classList.add('hidden');
+      galleryGridProps.classList.add('hidden');
+    }
+
+    /* "Story" section — full-width 16:9 images, each optionally
+       followed by a text block, only for projects whose tile has
+       a <div class="story-items"> block containing one
+       <div class="story-item" data-img="..." data-caption="..."></div>
+       per image. */
+    const storyItemEls = tile.querySelectorAll('.story-items .story-item');
+    const storyImages = [];
+    const storyTexts = [];
+    storyItemEls.forEach(item => {
+      storyImages.push(item.getAttribute('data-img') || '');
+      storyTexts.push(item.getAttribute('data-caption') || '');
+    });
+
+    const storyTitle = tile.getAttribute('data-gallery-story-title') || '';
+
+    galleryGridStory.innerHTML = '';
+    if(storyImages.length){
+      galleryStoryHeading.textContent = storyTitle;
+      galleryStoryHeader.classList.toggle('hidden', !storyTitle.trim().length);
+
+      storyImages.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title + ' — story image ' + (i + 1);
+        img.loading = 'lazy';
+        galleryGridStory.appendChild(img);
+
+        const caption = storyTexts[i];
+        if(caption){
+          const text = document.createElement('p');
+          text.className = 'gallery-story-text';
+          text.textContent = caption;
+          galleryGridStory.appendChild(text);
+        }
+      });
+      galleryGridStory.classList.remove('hidden');
+      scrollHint.classList.remove('hidden');
+    } else {
+      galleryStoryHeader.classList.add('hidden');
+      galleryGridStory.classList.add('hidden');
+    }
+
+    /* PDF download button — only shown for projects with a data-pdf
+       attribute on their tile. Optional data-pdf-note shows a short
+       centered line of text above the button. */
+    const pdfHref = tile.getAttribute('data-pdf');
+    if(pdfHref && pdfHref.trim().length){
+      modalPdfLink.href = pdfHref.trim();
+      modalPdfLink.setAttribute('download', '');
+      modalPdfNote.textContent = tile.getAttribute('data-pdf-note') || '';
+      modalPdf.classList.remove('hidden');
+    } else {
+      modalPdfLink.removeAttribute('href');
+      modalPdfNote.textContent = '';
+      modalPdf.classList.add('hidden');
+    }
+
+    /* Sketchfab 3D viewer — only shown for projects with a
+       data-sketchfab attribute on their tile. */
+    const sketchfabUrl = tile.getAttribute('data-sketchfab');
+    if(sketchfabUrl && sketchfabUrl.trim().length){
+      modalSketchfabFrame.src = sketchfabUrl.trim();
+      modalSketchfabHeading.textContent = tile.getAttribute('data-sketchfab-title') || '3D Viewer';
+      modalSketchfabHeader.classList.remove('hidden');
+      modalSketchfab.classList.remove('hidden');
+    } else {
+      modalSketchfabFrame.src = '';
+      modalSketchfabHeader.classList.add('hidden');
+      modalSketchfab.classList.add('hidden');
+    }
+  }
+
+  function openModal(index){
+    lastFocused = document.activeElement;
+    renderModal(index);
+    overlay.classList.add('open');
+    document.body.classList.add('modal-locked');
+    closeBtn.focus();
+  }
+
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.classList.remove('modal-locked');
+    modalVideoFrame.src = ''; /* stop video playback/audio on close */
+    modalSketchfabFrame.src = ''; /* stop 3D viewer on close */
+    if(lastFocused) lastFocused.focus();
+  }
+
+  function showNextProject(){ renderModal((currentProject + 1) % tiles.length); }
+  function showPrevProject(){ renderModal((currentProject - 1 + tiles.length) % tiles.length); }
+
+  /* Both grids' tiles get button semantics up front, since either
+     one may become the active grid via the tabs below. */
+  document.querySelectorAll('.grid .tile').forEach(tile => {
+    tile.style.cursor = 'pointer';
+    tile.setAttribute('role', 'button');
+    tile.setAttribute('tabindex', '0');
+  });
+
+  /* Clicks/keydowns are delegated to the shared wrapper rather than
+     bound per-tile, so switching tabs (which swaps the `tiles`
+     array) doesn't require re-binding anything. */
+  const workGridsWrap = document.getElementById('workGridsWrap');
+  workGridsWrap.addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile');
+    if(!tile) return;
+    const i = tiles.indexOf(tile);
+    if(i > -1) openModal(i);
+  });
+  workGridsWrap.addEventListener('keydown', (e) => {
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const tile = e.target.closest('.tile');
+    if(!tile) return;
+    const i = tiles.indexOf(tile);
+    if(i > -1){
+      e.preventDefault();
+      openModal(i);
+    }
+  });
+
+  /* ---------------------------------------------------------
+     WORK TABS — 3D Work / Graphic Design toggle
+     --------------------------------------------------------- */
+  const workTabs = document.querySelectorAll('.work-tab');
+  workTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-target');
+      if(target === activeGridId) return;
+
+      workTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      document.querySelectorAll('.work-grid-panel').forEach(panel => {
+        panel.style.display = (panel.id === target) ? '' : 'none';
+      });
+
+      activeGridId = target;
+      tiles = Array.from(document.querySelectorAll('#' + activeGridId + ' .tile'));
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  nextBtn.addEventListener('click', showNextProject);
+  prevBtn.addEventListener('click', showPrevProject);
+
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(!overlay.classList.contains('open')) return;
+    if(e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
