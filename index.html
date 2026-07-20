@@ -16,24 +16,25 @@
    DESIGN TOKENS — change these to re-theme the whole site
    ============================================================ */
 :root{
-  --bg:        #0E0E12;
-  --bg-raised: #16161B;
-  --panel:     #1C1C22;
-  --line:      #2A2A31;
+  --bg:        #262B2E;
+  --bg-pattern:#1F2224;
+  --bg-raised: #2E3538;
+  --panel:     #363E43;
+  --line:      #4A545A;
 
-  --text:      #F5F3EE;
-  --text-dim:  #B8B4AC;
-  --text-mute: #8C8478;
+  --text:      #F1E4C3;
+  --text-dim:  #D6C9A8;
+  --text-mute: #9CA69B;
 
-  --accent:    #1CBA6E;
-  --accent-dim:#7A3A2A;
-  --teal:      #3A4A4A;
+  --accent:    #C1652F;
+  --accent-dim:#8B4A24;
+  --teal:      #6E7B3E;
 
   --radius: 10px;
   --radius-lg: 22px;
   --maxw: 1280px;
 
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -43,7 +44,7 @@
 html{ scroll-behavior:smooth; }
 
 body{
-  background:var(--bg);
+  background-color:var(--bg);
   color:var(--text);
   font-family:var(--font-body);
   font-size:16px;
@@ -54,7 +55,7 @@ body{
 a{ color:inherit; text-decoration:none; }
 img{ max-width:100%; display:block; }
 
-::selection{ background:var(--accent); color:#0E0E12; }
+::selection{ background:var(--accent); color:#211B14; }
 
 :focus-visible{
   outline:2px solid var(--accent);
@@ -78,9 +79,6 @@ header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(14,14,18,0.85);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
 }
 
 nav{
@@ -98,14 +96,6 @@ nav{
   display:flex;
   align-items:center;
   gap:10px;
-}
-
-.logo .dot{
-  width:8px; height:8px;
-  background:var(--accent);
-  border-radius:1px;
-  display:inline-block;
-  flex-shrink:0;
 }
 
 .navlinks{
@@ -174,16 +164,6 @@ nav{
   overflow:hidden;
 }
 
-.hero::before{
-  content:'';
-  position:absolute;
-  top:-200px; right:-200px;
-  width:600px; height:600px;
-  background:radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
-  opacity:0.35;
-  pointer-events:none;
-}
-
 .hero-grid{
   display:grid;
   grid-template-columns:1.3fr 0.7fr;
@@ -240,7 +220,7 @@ nav{
 
 .hero h1{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(40px, 7vw, 84px);
   line-height:1.02;
   letter-spacing:-0.01em;
@@ -281,7 +261,7 @@ nav{
 .btn-primary{
   background:var(--accent);
   border-color:var(--accent);
-  color:#15110E;
+  color:#211B14;
   font-weight:500;
 }
 .btn-primary:hover{
@@ -321,7 +301,7 @@ nav{
 
 .software-list li{
   font-family:var(--font-display);
-  font-weight:500;
+  font-weight:700;
   font-size:15px;
   color:var(--text);
   border:1px solid var(--line);
@@ -333,20 +313,13 @@ nav{
   transition:border-color 0.2s ease, color 0.2s ease;
 }
 
-.software-list li:hover{
-  border-color:var(--accent);
-  color:var(--accent);
-}
-
 .software-icon{
   width:18px;
   height:18px;
   object-fit:contain;
   flex-shrink:0;
   opacity:0.85;
-  transition:opacity 0.2s ease;
 }
-.software-list li:hover .software-icon{ opacity:1; }
 
 @media (max-width:760px){
   .hero-software{ margin-top:56px; }
@@ -375,7 +348,7 @@ nav{
 
 .section-head h2{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(28px, 4vw, 42px);
   letter-spacing:-0.01em;
 }
@@ -400,15 +373,15 @@ nav{
    ============================================================ */
 .work-tab{
   font-family:var(--font-display);
-  font-weight:600;
-  font-size:15px;
+  font-weight:700;
+  font-size:30px;
   letter-spacing:0.03em;
   text-transform:uppercase;
   color:var(--text-mute);
   background:none;
-  border:1px solid var(--line);
+  border:2px solid var(--line);
   border-radius:var(--radius);
-  padding:10px 22px;
+  padding:20px 44px;
   cursor:pointer;
   transition:color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
@@ -463,14 +436,7 @@ nav{
   pointer-events:none;
 }
 .tile:hover .tile-wire{ opacity:1; }
-.tile-wire::before,
-.tile-wire::after{
-  content:'';
-  position:absolute;
-  background:var(--accent);
-}
-.tile-wire::before{ top:0; left:0; width:14px; height:1px; }
-.tile-wire::after{ top:0; left:0; width:1px; height:14px; }
+
 
 .tile-info{
   position:absolute;
@@ -485,7 +451,7 @@ nav{
 
 .tile-title{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:19px;
   margin-bottom:6px;
 }
@@ -588,7 +554,7 @@ nav{
 .modal-close:hover{
   background:var(--accent);
   border-color:var(--accent);
-  color:#15110E;
+  color:#211B14;
   transform:rotate(90deg);
 }
 
@@ -712,7 +678,7 @@ nav{
 .gallery-legacy-header.hidden{ display:none; }
 .gallery-legacy-header .legacy-heading{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(20px, 3vw, 26px);
   letter-spacing:-0.01em;
   margin-bottom:10px;
@@ -737,7 +703,7 @@ nav{
 .gallery-props-header.hidden{ display:none; }
 .gallery-props-header .props-heading{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(20px, 3vw, 26px);
   letter-spacing:-0.01em;
 }
@@ -766,7 +732,7 @@ nav{
 .gallery-story-header.hidden{ display:none; }
 .gallery-story-header .story-heading{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(20px, 3vw, 26px);
   letter-spacing:-0.01em;
 }
@@ -827,7 +793,7 @@ nav{
 
 .modal-title{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(26px, 4vw, 38px);
   letter-spacing:-0.01em;
   margin-bottom:18px;
@@ -916,7 +882,7 @@ nav{
   border:1px solid var(--accent);
   border-radius:var(--radius);
   background:var(--accent);
-  color:#15110E;
+  color:#211B14;
   font-weight:500;
   transition:all 0.2s ease;
 }
@@ -936,7 +902,7 @@ body.modal-locked{ overflow:hidden; }
 .modal-sketchfab-header.hidden{ display:none; }
 .modal-sketchfab-header .sketchfab-heading{
   font-family:var(--font-display);
-  font-weight:600;
+  font-weight:700;
   font-size:clamp(20px, 3vw, 26px);
   letter-spacing:-0.01em;
 }
@@ -977,10 +943,56 @@ body.modal-locked{ overflow:hidden; }
 
 .contact h2{
   font-family:var(--font-display);
-  font-weight:600;
-  font-size:clamp(32px, 6vw, 64px);
+  font-weight:700;
+  font-size:clamp(28px, 4vw, 40px);
   max-width:760px;
   letter-spacing:-0.01em;
+  color:var(--text-mute);
+}
+
+.contact-form{
+  margin-top:32px;
+  max-width:640px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.contact-form .form-row{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  flex:1;
+  min-width:200px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:15px;
+  resize:vertical;
+  transition:border-color 0.2s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+  color:var(--text-mute);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+
+.contact-form button{
+  align-self:flex-start;
 }
 
 .contact-row{
@@ -1035,7 +1047,7 @@ body.modal-locked{ overflow:hidden; }
 <header>
   <div class="wrap">
     <nav>
-      <a href="#top" class="logo"><span class="dot"></span>JOE WALKER</a>
+      <a href="#top" class="logo">JOE WALKER</a>
       <button class="navtoggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <div class="navlinks" id="navLinks">
         <a href="#work">Work</a>
@@ -1522,22 +1534,35 @@ body.modal-locked{ overflow:hidden; }
      ============================================================ -->
 <footer class="contact" id="contact">
   <div class="wrap">
-    <h2>Got a project in mind?<br>Let's build it.</h2>
+    <h2>Contact</h2>
 
-    <div class="contact-row">
-      <div class="contact-links">
-        <a href="mailto:walker.j17@outlook.com">Email</a>
-        <a href="https://www.linkedin.com/in/joe-walker-b5451a371">LinkedIn</a>
-        <a href="https://www.instagram.com/jowqui/">Instagram</a>
+    <form class="contact-form" id="contactForm">
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
       </div>
-      <a href="mailto:hello@example.com" class="btn btn-primary">Email Me →</a>
-    </div>
+      <textarea name="message" rows="5" placeholder="Write your message..." required></textarea>
+      <button type="submit" class="btn btn-primary">Send →</button>
+    </form>
 
     <div class="footer-bottom">
       <span>© 2026 Joe Walker</span>
     </div>
   </div>
 </footer>
+
+<script>
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+    const subject = encodeURIComponent(`Project inquiry from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:walker.j17@outlook.com?subject=${subject}&body=${body}`;
+  });
+</script>
 
 <script>
   const navToggle = document.getElementById('navToggle');
